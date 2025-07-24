@@ -1,4 +1,3 @@
-
 import { Entity, PrimaryGeneratedColumn, Column } from 'typeorm';
 
 @Entity()
@@ -17,4 +16,8 @@ export class User {
 
   @Column()
   password: string;
+
+@Column({ type: 'int', default: 0 }) // Add this if missing
+  rating: number;
+
 }

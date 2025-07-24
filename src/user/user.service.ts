@@ -15,7 +15,7 @@ export class UserService {
     return this.userRepository.find();
   }
 
-  // ✅ Register user with hashed password
+  // Register user with hashed password
   async create(userData: Partial<User>): Promise<User> {
     if (userData.password) {
       const saltRounds = 10;
@@ -26,7 +26,7 @@ export class UserService {
     return this.userRepository.save(newUser);
   }
 
-  // ✅ Validate user during login
+  //  Validate user during login
   async validateUser(email: string, plainPassword: string): Promise<User | null> {
     const user = await this.userRepository.findOneBy({ email });
 
@@ -47,6 +47,7 @@ export class UserService {
   async update(id: number, userData: Partial<User>): Promise<User> {
     await this.userRepository.update(id, userData);
     const updated = await this.userRepository.findOneBy({ id });
+    
 
     if (!updated) {
       throw new NotFoundException(`User with ID ${id} not found`);
@@ -54,4 +55,19 @@ export class UserService {
 
     return updated;
   }
+
+  // Add or update rating
+ 
+
+
+async updateRating(id: number, rating: number): Promise<User> {
+  const user = await this.userRepository.findOne({ where: { id } });
+  if (!user) {
+    throw new NotFoundException('User not found');
+  }
+  user.rating = rating;
+  return this.userRepository.save(user);
+}
+
+
 }
