@@ -14,17 +14,16 @@ import { ConfigModule } from '@nestjs/config';
 
 
     TypeOrmModule.forRoot({
-      type: 'mysql',
-      host: 'localhost',
-      port: 3306,
-      username: 'root',
-      password: 'Wj24@Amit',
-      database: 'dashboard',
-      autoLoadEntities: true,
-      synchronize: true,
-       
-    
-    }),
+  type: 'mysql',
+  host: process.env.DB_HOST || 'localhost',
+  port: Number(process.env.DB_PORT) || 3306,
+  username: process.env.DB_USERNAME || 'root',
+  password: process.env.DB_PASSWORD || '',
+  database: process.env.DB_NAME || 'dashboard',
+  autoLoadEntities: true,
+  synchronize: true,
+}),
+
     UserModule,
     RegisterModule,
     DashboardModule,
